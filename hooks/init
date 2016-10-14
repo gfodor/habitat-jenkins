@@ -1,0 +1,3 @@
+#!/bin/sh
+
+#chown -R hab:hab {{pkg.svc_path}}/*
