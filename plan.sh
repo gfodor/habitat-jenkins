@@ -7,6 +7,7 @@ pkg_source=http://repo.jenkins-ci.org/public/org/jenkins-ci/main/jenkins-war/${p
 pkg_filename=${pkg_name}-${pkg_version}.war
 pkg_shasum=ee2fbf2a5fb2bae3bb60ba2cc6ce8667a783cae8d6d5eb2117364c069c1321b6
 pkg_deps=(core/coreutils core/jre8 core/gcc-libs core/glibc)
+pkg_build_deps=(core/patchelf)
 pkg_bin_dirs=(bin)
 pkg_include_dirs=(include)
 pkg_lib_dirs=(lib)
@@ -14,10 +15,10 @@ pkg_expose=(8080)
 
 do_download() {
     # check to see if the file is already there
-    if [ ! -f $pkg_filename ]; then
+   # if [ ! -f $pkg_filename ]; then
       # grab it if you aren't
-      wget $pkg_source
-    fi
+      wget -O $HAB_CACHE_SRC_PATH/$pkg_filename $pkg_source
+#    fi
 }
 
 do_verify() {
@@ -34,12 +35,9 @@ do_build() {
 
 do_install() {
   build_line "Copying war file"
-  mkdir $pkg_prefix/deployment
-  cp $HAB_CACHE_SRC_PATH/$pkg_filename $pkg_prefix/deployment
-  mv -f $pkg_prefix/deployment/$pkg_filename $pkg_prefix/jenkins.war
-  # if [ ! -f $pkg_svc_path/deployment ]; then
-  #   mkdir $pkg_svc_path/deployment
-  # fi
-  mv -f $pkg_prefix/jenkins.war $pkg_svc_path/deployment
-  chown -R hab:hab $pkg_svc_path/deployment
+  cp $HAB_CACHE_SRC_PATH/$pkg_filename $pkg_prefix
+  mv -f $pkg_prefix/$pkg_filename $pkg_prefix/jenkins.war
+  patchelf --interpreter "$(pkg_path_for core/gcc-libs)/lib/libgcc_s.so.1" \
+           --set-rpath ${LD_RUN_PATH} \
+           ${pkg_prefix}/jenkins.war
 }

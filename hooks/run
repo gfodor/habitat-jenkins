@@ -6,6 +6,4 @@ export JAVA_HOME=$(hab pkg path core/jre8)
 export JENKINS_CONFIG={{pkg.svc_config_path}}
 export JENKINS_HOME={{pkg.svc_config_path}}
 
-export PATH=$PATH:/hab/pkgs/core/gcc-libs/5.2.0/20160612075020/lib
-
-exec java -jar {{pkg.svc_path}}/deployment/jenkins.war
+exec java -jar {{pkg.path}}/jenkins.war
