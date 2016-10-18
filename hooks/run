@@ -4,6 +4,11 @@ exec 2>&1
 
 export JAVA_HOME=$(hab pkg path core/jre8)
 export JENKINS_CONFIG={{pkg.svc_config_path}}
-export JENKINS_HOME={{pkg.svc_config_path}}
+export JENKINS_HOME={{pkg.svc_data_path}}
+
+
+LD_LIBRARY_PATH="$(hab pkg path core/gcc-libs)/lib"
+export LD_LIBRARY_PATH
+echo "LD_LIBRARY_PATH=${LD_LIBRARY_PATH}"
 
 exec java -jar {{pkg.path}}/jenkins.war

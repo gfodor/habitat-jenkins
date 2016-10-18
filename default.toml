@@ -1,0 +1,3 @@
+[jenkins]
+slavePort = "-1"
+disableSignup = true
