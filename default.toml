@@ -1,3 +1,7 @@
 [jenkins]
 slavePort = "-1"
 disableSignup = true
+
+[java]
+max_memory = "1024m"
+min_memory = "1024m"

@@ -1,6 +1,6 @@
 pkg_origin=jjasghar
 pkg_name=jenkins-war
-pkg_version=2.9
+pkg_version=2.26
 pkg_maintainer="JJ Asghar <jj@chef.io>"
 pkg_license=("Apache 2")
 pkg_source=http://repo.jenkins-ci.org/public/org/jenkins-ci/main/jenkins-war/${pkg_version}/${pkg_name}-${pkg_version}.war

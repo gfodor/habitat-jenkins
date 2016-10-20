@@ -11,4 +11,4 @@ LD_LIBRARY_PATH="$(hab pkg path core/gcc-libs)/lib"
 export LD_LIBRARY_PATH
 echo "LD_LIBRARY_PATH=${LD_LIBRARY_PATH}"
 
-exec java -jar {{pkg.path}}/jenkins.war
+exec java -Xmx{{cfg.java.max_memory}} -Xms{{cfg.java.min_memory}} -jar {{pkg.path}}/jenkins.war
