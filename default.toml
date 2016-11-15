@@ -1,5 +1,5 @@
 [jenkins]
-slavePort = "-1"
+slavePort = "0"
 disableSignup = true
 
 [java]
