@@ -13,11 +13,24 @@ $ hab studio enter # enter the studio
 [5][default:/src/habitat-jenkins:0]# logout # leave the studio
 $ docker run -p 8080:8080 -it YOURORIGIN/jenkins-war:latest # run container
 ```
+
+## Backups
+
+This plan also packages a [S3 backup script](https://github.com/artsy/jenkins-backup-s3) with a Python virtualenv for backing up your Jenkins config.
+
+To use it, set up a cron job or a Jenkins job to run:
+
+```
+source $(hab pkg path mozillareality/jenkins-war)/bin/activate
+python3 $(hab pkg path mozillareality/jenkins-war)/bin/backup-s3 --bucket <your-bucket> --region <bucket-region> create --jenkins-home /hab/svc/jenkins-war/data
+```
+
 ## License & Authors
 
 - Author:: JJ Asghar (<jj@chef.io>)
 - Author:: Ian Henery (<ihenery@chef.io>)
 - Author:: Elliott Davis (<edavis@chef.io>)
+- Author:: Greg Fodor (<gfodor@mozilla.com>)
 
 ```text
 Copyright (c) 2016, JJ Asghar
